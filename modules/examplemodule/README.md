@@ -1,59 +1,31 @@
 # Example module for Craft CMS 3.x
 
-Example API
+## Overview
 
-## Requirements
+The module either creates a new entry if one with a matching title doesn't exist or it updates an existing entry by matching its entry title. It creates a couple different types of matrix blocks in that entry as well. It matches what block it should map to by handle. 
 
-This module requires Craft CMS 3.0.0-RC1 or later.
+## Example JSON payload
 
-## Installation
+With a REST client of some sort, it uses a POST request with `X-API-Key: abc123` in the header passed to authorize the call. Valid keys live in the module model, though it could be put into the admin area too and thus be able to have an envvar house that data. 
 
-To install the module, follow these instructions.
-
-First, you'll need to add the contents of the `app.php` file to your `config/app.php` (or just copy it there if it does not exist). This ensures that your module will get loaded for each request. The file might look something like this:
+This is an example of JSON data that can be passed. These all basically map to field handles in the entry, except for pageTitle which just goes to title (I don't know why - I just didn't change it as I was stubbing out the data for some reason). 
 
 ```
-return [
-    'modules' => [
-        'example-module' => [
-            'class' => \modules\examplemodule\ExampleModule::class,
-            'components' => [
-                'api' => [
-                    'class' => 'modules\examplemodule\services\Api',
-                ],
-            ],
-        ],
-    ],
-    'bootstrap' => ['example-module'],
-];
-```
-
-You'll also need to make sure that you add the following to your project's `composer.json` file so that Composer can find your module:
-
-    "autoload": {
-        "psr-4": {
-          "modules\\examplemodule\\": "modules/examplemodule/src/"
+{
+    "pageTitle": "Another Test Entry",
+	"bodyText": "sssLorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "status": "1",
+    "blocks": [
+        {
+        "blockType": "anotherBlockType",
+        "headline": "Another Headline",
+        "showThis": "0"
+        },
+        {
+        "blockType": "exampleBlock",
+        "headline": "Some Headline",
+        "bodyText": "Proin finibus non magna non tincidunt. "
         }
-    },
-
-After you have added this, you will need to do:
-
-    composer dump-autoload
-
-…from the project’s root directory, to rebuild the Composer autoload map. This will happen automatically any time you do a `composer install` or `composer update` as well.
-
-## Example Overview
-
--Insert text here-
-
-## Using Example
-
--Insert text here-
-
-## Example Roadmap
-
-Some things to do, and ideas for potential features:
-
-- Release it
-
-Brought to you by [John Peacock](https://clearmpls.com)
+    ]
+}
+```
