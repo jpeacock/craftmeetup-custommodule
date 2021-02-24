@@ -6,7 +6,7 @@ The module either creates a new entry if one with a matching title doesn't exist
 
 ## Example JSON payload
 
-With a REST client of some sort, it uses a POST request with `X-API-Key: abc123` in the header passed to authorize the call. Valid keys live in the module model, though it could be put into the admin area too and thus be able to have an envvar house that data. 
+With a REST client of some sort, it uses a POST request with `X-API-Key: abc123` in the header passed to authorize the call. Valid keys live in the `.env` file as `MODULE_API_KEY` envvar. There's an example in the `.env.example` file.
 
 This is an example of JSON data that can be passed. These all basically map to field handles in the entry, except for pageTitle which just goes to title (I don't know why - I just didn't change it as I was stubbing out the data for some reason). 
 
