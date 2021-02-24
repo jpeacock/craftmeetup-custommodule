@@ -1,0 +1,17 @@
+<style>
+  article {
+    border-bottom: 2px solid red;
+  }
+</style>
+{% set entries = craft.entries()
+    .section('blog')
+    .limit(100)
+    .all() %}
+
+{% if entries | length %}
+  {% for entry in entries %}
+    <article>
+    {% include "entry" with {entry:entry} %}
+    </article>
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,21 @@
+<h1>{{ entry.title }}</h1>
+
+{% if entry.components | length %}
+  {% set components = entry.components.all() %}
+  {% for component in components %}
+    {% if component.type == 'exampleBlock' %}
+      <div>
+      <h2>{{ component.headline }}</h2>
+      {{ component.bodyText }}
+      <hr>
+      </div>
+
+    {% elseif component.type == 'anotherBlockType' %}
+      <div>
+      <h2>{{ component.headline }}</h2>
+      Show This?: {{ component.showThis | default('nope') }}
+      <hr>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
