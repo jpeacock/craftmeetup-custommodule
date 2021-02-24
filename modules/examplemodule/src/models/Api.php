@@ -37,15 +37,6 @@ use craft\helpers\DateTimeHelper;
  */
 class Api extends Model
 {
-    // Public Properties
-    // =========================================================================
-
-    /**
-     * Some model attribute
-     *
-     * @var string
-     */
-    public $apiKeys = ['abc123'];
 
     // Public Methods
     // =========================================================================
@@ -190,10 +181,15 @@ class Api extends Model
       $headers = Craft::$app->request->headers;
       $apiKey = $headers->get('X-api-key');
 
-      $keys = $this->apiKeys;
-    
-      if(!in_array($apiKey, $keys)) {
-          throw new \yii\web\ForbiddenHttpException("Unauthorized access. Please access with an authorized API key.");
+      $allowedKeys = Craft::$app->config->general->customModuleApiKey;
+      
+      // you can set an envvar with either an array or single API key, so this checks to see what format that's in
+      $keys = explode(',', $allowedKeys);
+      
+      if (is_array($keys) or ($keys instanceof Traversable)){
+        if(!in_array($apiKey, $keys)) {
+            throw new \yii\web\ForbiddenHttpException("Unauthorized access. Please access with an authorized API key.");
+        }
       }
     }
 

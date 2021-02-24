@@ -34,4 +34,6 @@ return [
 
     // Whether crawlers should be allowed to index pages and following links
     'disallowRobots' => !$isProd,
+
+    'customModuleApiKey' => App::env('MODULE_API_KEY') ?: null
 ];
